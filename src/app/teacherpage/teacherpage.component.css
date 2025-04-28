@@ -1,0 +1,11 @@
+.teacher{
+    border: 2px solid red;
+   
+}
+.headtech{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+    align-items: center;
+    padding: 10px 100px;
+}

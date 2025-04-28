@@ -1,0 +1,44 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label" for="fname">First Name</label>
+        <input class="form-control" name="fname" type="text" [(ngModel)]="fname" placeholder="Enter your First Name"
+          [class.invalid]="isSubmitted && fname === ''">
+        <p *ngIf="isSubmitted && fname === ''" class="error-text">First Name is required</p>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label" for="lname">Last Name</label>
+        <input class="form-control" name="lname" type="text" [(ngModel)]="lname" placeholder="Enter your Last Name"
+          [class.invalid]="isSubmitted && lname === ''">
+        <p *ngIf="isSubmitted && lname === ''" class="error-text">Last Name is required</p>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label" for="email">Email Address</label>
+        <input type="email" class="form-control" name="email" [(ngModel)]="email" placeholder="Enter your mail address"
+          [class.invalid]="isSubmitted && email === ''">
+        <p *ngIf="isSubmitted && email === ''" class="error-text">Email is required</p>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="password"
+          placeholder="Create Your Own Password" [class.invalid]="isSubmitted && password === ''">
+        <p *ngIf="isSubmitted && password === ''" class="error-text">Password is required</p>
+      </div>
+  
+      <div class="mb-3">
+        <label for="mobile" class="form-label">Mobile Number</label>
+        <input type="number" class="form-control" name="mobile" [(ngModel)]="mobile"
+          placeholder="Enter Your Mobile Number" [class.invalid]="isSubmitted && mobile === ''">
+        <p *ngIf="isSubmitted && mobile === ''" class="error-text">Mobile Number is required</p>
+      </div>
+  
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+    </form>
+  </div>
+  <router-outlet></router-outlet>
+  

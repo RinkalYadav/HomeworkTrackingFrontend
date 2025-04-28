@@ -1,0 +1,21 @@
+.nav{
+    max-width: 100%;
+    padding: 20px 100px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    background-color: #0d1b2a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.logoimg{
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+.logoimg:hover{
+    transform: scale(1.2); /* Zoom in by 10% */
+}
