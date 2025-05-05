@@ -4,11 +4,14 @@ import { RegisterComponent } from './register/register.component';
 import { AppComponent } from './app.component';
 import { FileNotFoundComponent } from './file-not-found/file-not-found.component';
 import { NgModule } from '@angular/core';
+import { TeacherpageComponent } from './teacherpage/teacherpage.component';
 
 export const routes: Routes = [
     {path:'login',component:LoginComponent},
-    {path:'register',component:RegisterComponent},
-    {path:'**',component:FileNotFoundComponent}
+    {path:'teacherpage',component:TeacherpageComponent},
+    {path:'register',component:RegisterComponent},   
+    // {path:'**',component:FileNotFoundComponent}
+   
 ];
 
 @NgModule({

@@ -10,7 +10,7 @@ import { SubmithomeworkComponent } from "./submithomework/submithomework.compone
 @Component({
   selector: 'app-root',
   standalone:true,
-  imports: [RouterModule, RouterOutlet, HeaderComponent, FooterComponent, TeacherpageComponent, StudentpageComponent, HomeworkdetailsComponent, SubmithomeworkComponent],
+  imports: [RouterModule, RouterOutlet, HeaderComponent, FooterComponent, StudentpageComponent, HomeworkdetailsComponent, SubmithomeworkComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
