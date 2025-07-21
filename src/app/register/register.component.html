@@ -1,45 +1,82 @@
 <div class="container">
-    <form (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label class="form-label" for="fname">First Name</label>
-        <input class="form-control" name="fname" type="text" [(ngModel)]="fname" placeholder="Enter your First Name"
-          [class.invalid]="isSubmitted && fname === ''">
-        <p *ngIf="isSubmitted && fname === ''" class="error-text">First Name is required</p>
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label" for="lname">Last Name</label>
-        <input class="form-control" name="lname" type="text" [(ngModel)]="lname" placeholder="Enter your Last Name"
-          [class.invalid]="isSubmitted && lname === ''">
-        <p *ngIf="isSubmitted && lname === ''" class="error-text">Last Name is required</p>
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label" for="email">Email Address</label>
-        <input type="email" class="form-control" name="email" [(ngModel)]="email" placeholder="Enter your mail address"
-          [class.invalid]="isSubmitted && email === ''">
-        <p *ngIf="isSubmitted && email === ''" class="error-text">Email is required</p>
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label" for="password">Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="password"
-          placeholder="Create Your Own Password" [class.invalid]="isSubmitted && password === ''">
-        <p *ngIf="isSubmitted && password === ''" class="error-text">Password is required</p>
-      </div>
-  
-      <div class="mb-3">
-        <label for="mobile" class="form-label">Mobile Number</label>
-        <input type="number" class="form-control" name="mobile" [(ngModel)]="mobile"
-          placeholder="Enter Your Mobile Number" [class.invalid]="isSubmitted && mobile === ''">
-        <p *ngIf="isSubmitted && mobile === ''" class="error-text">Mobile Number is required</p>
-      </div>
-  
-      <div class="mb-3">
-       <button type="submit" class="btn btn-primary">Register</button>
-        
-      </div>
-    </form>
-  </div>
- 
-  
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+    <!-- Username -->
+    <div class="mb-3">
+      <label class="form-label" for="username">Username</label>
+      <input
+        class="form-control"
+        name="username"
+        type="text"
+        [(ngModel)]="user.username"
+        placeholder="Enter your Username"
+        [class.invalid]="isSubmitted && !user.username"
+      />
+      <p *ngIf="isSubmitted && !user.username" class="error-text">Username is required</p>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label class="form-label" for="password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        [(ngModel)]="user.password"
+        placeholder="Enter your Password"
+        [class.invalid]="isSubmitted && !user.password"
+      />
+      <p *ngIf="isSubmitted && !user.password" class="error-text">Password is required</p>
+    </div>
+
+    <!-- Role -->
+    <div class="mb-3">
+      <label for="role" class="form-label">Role</label>
+      <select
+        class="form-control"
+        name="role"
+        [(ngModel)]="user.role"
+        required
+      >
+        <option value="" disabled>Select your role</option>
+        <option value="STUDENT">STUDENT</option>
+        <option value="TEACHER">TEACHER</option>
+        <option value="PARENT">PARENT</option>
+      </select>
+      <p *ngIf="isSubmitted && !user.role" class="error-text">Role is required</p>
+    </div>
+
+    <!-- Class Dropdown for TEACHER -->
+<div class="mb-3" *ngIf="isTeacher()">
+  <label for="classes" class="form-label">Select Classes (You can choose multiple)</label>
+  <select
+    class="form-control"
+    multiple
+    [(ngModel)]="selectedTeacherClasses"
+    name="selectedTeacherClasses"
+  >
+    <option *ngFor="let c of availableClasses" [value]="c">{{ c }}</option>
+  </select>
+</div>
+
+<!-- Class Dropdown for STUDENT -->
+<div class="mb-3" *ngIf="isStudent()">
+  <label for="classes" class="form-label">Select Class</label>
+  <select
+    class="form-control"
+    [(ngModel)]="user.classes"
+    name="classes"
+  >
+    <option value="" disabled>Select a class</option>
+    <option *ngFor="let c of availableClasses" [value]="c">{{ c }}</option>
+  </select>
+</div>
+
+
+    <!-- Submit Button -->
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+
+  </form>
+</div>

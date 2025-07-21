@@ -1,16 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./header/header.component";
+import { Component } from "@angular/core";
+import { RouterModule, RouterOutlet } from "@angular/router";
 import { FooterComponent } from "./footer/footer.component";
-import { TeacherpageComponent } from "./teacherpage/teacherpage.component";
-import { StudentpageComponent } from "./studentpage/studentpage.component";
-import { HomeworkdetailsComponent } from "./homeworkdetails/homeworkdetails.component";
-import { SubmithomeworkComponent } from "./submithomework/submithomework.component";
+import { HeaderComponent } from "./header/header.component";
+
 
 @Component({
   selector: 'app-root',
   standalone:true,
-  imports: [RouterModule, RouterOutlet, HeaderComponent, FooterComponent, StudentpageComponent, HomeworkdetailsComponent, SubmithomeworkComponent],
+  imports: [RouterModule, RouterOutlet, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

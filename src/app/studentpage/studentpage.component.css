@@ -1,0 +1,20 @@
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+  padding-bottom: 80px;
+}
+
+.card {
+  background-color: #f8f9fa;
+}
+
+strong {
+  font-size: 1.1rem;
+}
+
+:host {
+  display: block;
+  flex-grow: 1;
+  min-height: 100%;
+}

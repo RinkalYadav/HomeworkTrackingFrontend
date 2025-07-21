@@ -1,0 +1,16 @@
+.container {
+  padding-bottom: 80px; /* prevent footer overlap */
+}
+
+.card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+h2, h4 {
+  color: #333;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #ccc;
+}

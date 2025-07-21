@@ -1,21 +1,24 @@
-import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AppComponent } from './app.component';
 import { FileNotFoundComponent } from './file-not-found/file-not-found.component';
-import { NgModule } from '@angular/core';
 import { TeacherpageComponent } from './teacherpage/teacherpage.component';
+import { StudentComponent } from './studentpage/studentpage.component'; // if needed
+import { Routes } from '@angular/router';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ParentpageComponent } from './parentpage/parentpage.component';
 
 export const routes: Routes = [
-    {path:'login',component:LoginComponent},
-    {path:'teacherpage',component:TeacherpageComponent},
-    {path:'register',component:RegisterComponent},   
-    // {path:'**',component:FileNotFoundComponent}
-   
+  { path: '', component: LoginComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'teacherpage', component: TeacherpageComponent },
+  { path: 'student', component: StudentComponent }, // optional
+  { path: 'parent', component: ParentpageComponent },
+  {
+  path: 'forgot-password',
+  loadComponent: () => import('./forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
+}
+,
+  { path: '**', component: FileNotFoundComponent }
 ];
-
-@NgModule({
-    imports: [RouterModule.forRoot(routes)], // imports RouterModule with routes defined
-    exports: [RouterModule]                  // exports RouterModule for use in other parts of the app
-  })
-  export class AppRoutingModule { }
