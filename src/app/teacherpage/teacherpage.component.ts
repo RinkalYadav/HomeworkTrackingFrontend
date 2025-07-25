@@ -102,23 +102,30 @@ export class TeacherpageComponent implements OnInit {
       });
   }
 
-  submitFeedback(submissionId: number, feedback: string, score: number) {
-    const token = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const params = { feedback, score };
+ submitFeedback(submissionId: number, feedback: string, score: number) {
+  const token = localStorage.getItem('auth_token')!;
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  });
+  const body = { feedback, score };
 
-    this.http.put(`http://localhost:8080/api/student/submission/${submissionId}/comment`, null, {
-      params,
-      headers
-    }).subscribe({
-      next: () => {
-        alert('✅ Feedback submitted.');
-      },
-      error: () => {
+  this.http
+    .put(
+      `http://localhost:8080/api/teacher/submissions/${submissionId}/feedback`,
+      body,
+      { headers, responseType: 'text' }  // 👈 THIS LINE tells Angular to expect plain text }
+      
+    )
+    .subscribe({
+      next: () => alert('✅ Feedback submitted.'),
+      error: err => {
+        console.error('Feedback error:', err);
         alert('❌ Failed to submit feedback.');
       }
     });
-  }
+}
+
 
   // Optional utility for HTML: replace backslashes in file path for URLs
   sanitizeFilePath(filePath: string): string {

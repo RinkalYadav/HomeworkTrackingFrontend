@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StudentComponent implements OnInit {
   assignments: Assignment[] = [];
+  submissions: any[] = []; // ✅ Store all submissions with feedback
   studentName: string = '';
   studentClass: string = '';
   selectedFiles: { [assignmentId: number]: File } = {};
@@ -41,7 +42,21 @@ export class StudentComponent implements OnInit {
         alert('❌ Failed to fetch assignments from teacher.');
       }
     });
+     // ✅ Get student's submissions with feedback
+  this.submissionService.getStudentSubmissions().subscribe({
+    next: (data) => {
+      this.submissions = data;
+      this.submittedAssignments = data.map(s => s.assignment.id); // track which are submitted
+    },
+    error: () => {
+      alert('❌ Failed to fetch your submissions.');
+    }
+  });
   }
+  getSubmissionForAssignment(assignmentId: number) {
+  return this.submissions?.find(sub => sub.assignment?.id === assignmentId);
+}
+
 
   // ✅ Get student name and class from localStorage
   fetchStudentProfile() {

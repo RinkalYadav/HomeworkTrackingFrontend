@@ -22,23 +22,36 @@
           <p><strong>Description:</strong> {{ assignment.description }}</p>
           <p><strong>Deadline:</strong> {{ assignment.deadline || 'Not specified' }}</p>
 
+          <div *ngIf="getSubmissionForAssignment(assignment.id) as submission">
+            <p><strong>Status:</strong> 
+              <span *ngIf="submission.feedback">Reviewed</span>
+              <span *ngIf="!submission.feedback">Submitted</span>
+            </p>
+            <p *ngIf="submission.feedback"><strong>Feedback:</strong> {{ submission.feedback }}</p>
+            <p *ngIf="submission.score != null"><strong>Score:</strong> {{ submission.score }}</p>
+          </div>
+
           <input type="file" (change)="onFileSelected($event, assignment.id)" class="form-control mb-2" />
         </div>
+
         <div class="text-end ms-3">
           <button
             class="btn btn-sm"
             [ngClass]="{
-              'btn-success': !submittedAssignments.includes(assignment.id),
-              'btn-secondary': submittedAssignments.includes(assignment.id)
+              'btn-primary': !getSubmissionForAssignment(assignment.id),
+              'btn-warning': getSubmissionForAssignment(assignment.id) && !getSubmissionForAssignment(assignment.id)?.feedback,
+              'btn-success': getSubmissionForAssignment(assignment.id)?.feedback
             }"
-            [disabled]="submittedAssignments.includes(assignment.id) || loading[assignment.id]"
+            [disabled]="getSubmissionForAssignment(assignment.id)"
             (click)="submitHomework(assignment.id)"
           >
             <ng-container *ngIf="loading[assignment.id]">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...
             </ng-container>
             <ng-container *ngIf="!loading[assignment.id]">
-              {{ submittedAssignments.includes(assignment.id) ? 'Submitted' : 'Submit' }}
+              <span *ngIf="!getSubmissionForAssignment(assignment.id)">Submit</span>
+              <span *ngIf="getSubmissionForAssignment(assignment.id) && !getSubmissionForAssignment(assignment.id)?.feedback">Submitted</span>
+              <span *ngIf="getSubmissionForAssignment(assignment.id)?.feedback">Reviewed</span>
             </ng-container>
           </button>
         </div>
