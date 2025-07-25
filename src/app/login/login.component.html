@@ -34,6 +34,58 @@
       </div>
     </div>
 
+    <div class="mb-3">
+  <label class="form-label" for="role">Select Role</label>
+  <select
+    id="role"
+    class="form-control"
+    name="role"
+    [(ngModel)]="user.role"
+    required
+    #role="ngModel"
+  >
+    <option value="" disabled selected>Select your role</option>
+    <option value="STUDENT">STUDENT</option>
+    <option value="TEACHER">TEACHER</option>
+    <option value="PARENT">PARENT</option>
+  </select>
+  <div *ngIf="role.invalid && role.touched" class="text-danger">
+    Role is required.
+  </div>
+</div>
+<!-- 👇 Show this only if role is STUDENT -->
+<div *ngIf="user.role === 'STUDENT'" class="mb-3">
+  <label class="form-label" for="class">Select Class</label>
+  <select
+    id="class"
+    class="form-control"
+    name="class"
+    [(ngModel)]="selectedClass"
+    required
+  >
+    <option value="" disabled selected>Select your class</option>
+    <option *ngFor="let cls of classes" [value]="cls">{{ cls }}</option>
+  </select>
+</div>
+
+<!-- 👇 Show this only if role is TEACHER -->
+<div *ngIf="user.role === 'TEACHER'" class="mb-3">
+  <label class="form-label" for="class">Select Class</label>
+  <select
+    id="teacherClass"
+    class="form-control"
+    name="teacherClass"
+    [(ngModel)]="selectedClass"
+    required
+  >
+    <option value="" disabled selected>Select your class</option>
+    <option *ngFor="let cls of classes" [value]="cls">{{ cls }}</option>
+  </select>
+</div>
+
+
+
+
     <div class="mb-3 d-flex justify-content-between align-items-center">
       <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid">
         Login

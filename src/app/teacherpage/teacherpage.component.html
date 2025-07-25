@@ -49,6 +49,8 @@
     <div *ngIf="submissions[hw.id]" class="mt-3">
       <div *ngFor="let s of submissions[hw.id]" class="border p-2 mb-2">
         <p><strong>Student:</strong> {{ s.student?.username || 'Unknown' }}</p>
+        <p><strong>Class:</strong> {{ s.student?.classes || 'Unknown' }}</p>
+
         <p><strong>Submitted At:</strong> {{ s.submittedAt | date:'short' }}</p>
         <a [href]="'http://localhost:8080/' + s.filePath" target="_blank">📂 View Submission</a>
 

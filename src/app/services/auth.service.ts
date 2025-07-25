@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -13,9 +13,17 @@ export class AuthService {
 
   // 🔐 Login API
   login(user: User): Observable<{ token: string; role: string; username: string }> {
-    return this.http.post<{ token: string; role: string; username: string }>(
+    return this.http.post<{ token: string; role: string; username: string; classes: string}>(
       `${this.apiUrl}/login`,
       user
+       ).pipe(
+    tap((response) => {
+      this.setToken(response.token);
+      // ✅ Store username (EXACTLY like teacher)
+      localStorage.setItem('username', response.username); 
+      // ✅ Store class (student-specific)
+      localStorage.setItem('studentClass', response.classes); 
+    })
     );
   }
 

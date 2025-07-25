@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AssignmentService } from '../services/assignment.service';
 import { SubmissionService } from '../services/submission.service';
 import { Assignment } from '../models/assignment.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-studentpage',
@@ -14,7 +15,8 @@ import { Assignment } from '../models/assignment.model';
 })
 export class StudentComponent implements OnInit {
   assignments: Assignment[] = [];
-  studentName: string = 'Student';
+  studentName: string = '';
+  studentClass: string = '';
   selectedFiles: { [assignmentId: number]: File } = {};
   submittedAssignments: number[] = [];
   loading: { [assignmentId: number]: boolean } = {};
@@ -22,13 +24,14 @@ export class StudentComponent implements OnInit {
   constructor(
     private assignmentService: AssignmentService,
     private submissionService: SubmissionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.studentName = params['username'] || 'Student';
-    });
+     this.studentName = localStorage.getItem('username') || 'Student';
+  this.studentClass = localStorage.getItem('studentClass') || '';
+    this.fetchStudentProfile();
 
     this.assignmentService.getAllTeacherAssignments().subscribe({
       next: (data: Assignment[]) => {
@@ -38,6 +41,17 @@ export class StudentComponent implements OnInit {
         alert('❌ Failed to fetch assignments from teacher.');
       }
     });
+  }
+
+  // ✅ Get student name and class from localStorage
+  fetchStudentProfile() {
+    const name = localStorage.getItem('username');
+    const className = localStorage.getItem('studentClass');
+
+    console.log('👤 Loaded from localStorage:', name, className); // Debug only
+
+    this.studentName = name ?? 'Student';
+    this.studentClass = className ?? '';
   }
 
   onFileSelected(event: any, assignmentId: number) {

@@ -23,34 +23,46 @@ import { User } from '../models/user.model';
   ],
 })
 export class LoginComponent {
-  user: User = { username: '', password: '', email: '' };
+  user: User = { username: '', password: '', email: '', role: '', classes: '' };
   isSubmitted: boolean = false;
+  selectedClass: string = '';
+  classes: string[] = ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
 
   constructor(private authService: AuthService, public router: Router) {}
 
   onSubmit() {
     this.isSubmitted = true;
 
-    if (!this.user.username || !this.user.password) {
-      alert('Username and Password are required');
+    if (!this.user.username || !this.user.password || !this.user.role) {
+      alert('Username, Password, and Role are required');
       return;
     }
 
-    this.authService.login(this.user).subscribe({
-      next: (response: { token: string; role: string; username: string }) => {
-        // ✅ Save token in localStorage
-        localStorage.setItem('token', response.token);
-        console.log("🔐 Token saved to localStorage:", response.token);
+    if ((this.user.role === 'STUDENT' || this.user.role === 'TEACHER') && !this.selectedClass) {
+      alert('Class selection is required for ' + this.user.role.toLowerCase());
+      return;
+    }
 
-        // Optional: also set in authService if needed
+    // Attach class to user if student
+    if (this.user.role === 'STUDENT') {
+      this.user.classes = this.selectedClass;
+    }
+    else if (this.user.role === 'TEACHER') {
+    this.user.classes = this.selectedClass; // send selected class to validate
+  }
+
+    this.authService.login(this.user).subscribe({
+      next: (response: { token: string; role: string; username: string; classes?: string }) => {
+        localStorage.setItem('auth_token', response.token);
         this.authService.setToken(response.token);
 
         const role = response.role?.toUpperCase();
         const username = response.username;
+        const classes = response.classes;
 
         switch (role) {
           case 'STUDENT':
-            this.router.navigate(['/student'], { queryParams: { username } });
+            this.router.navigate(['/student'], { queryParams: { username, classes } });
             break;
           case 'TEACHER':
             this.router.navigate(['/teacherpage'], { queryParams: { username } });
