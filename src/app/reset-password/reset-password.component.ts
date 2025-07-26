@@ -43,7 +43,7 @@ export class ResetPasswordComponent implements OnInit {
       newPassword: this.newPassword
     };
 
-    this.http.post('http://localhost:8080/api/auth/reset-password', payload).subscribe({
+    this.http.post('https://homeworktrackingbackend.onrender.com/api/auth/reset-password', payload).subscribe({
       next: () => {
         alert('Password reset successfully!');
         localStorage.removeItem('reset_token');

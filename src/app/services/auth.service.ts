@@ -7,7 +7,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth'; // ✅ base URL for both login and register
+  private apiUrl = 'https://homeworktrackingbackend.onrender.com/api/auth'; // ✅ base URL for both login and register
 
   constructor(private http: HttpClient) {}
 

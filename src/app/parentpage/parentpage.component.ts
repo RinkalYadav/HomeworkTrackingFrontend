@@ -30,7 +30,7 @@ export class ParentpageComponent implements OnInit {
   }
 
   fetchAssignments(): void {
-    this.http.get<any[]>('http://localhost:8080/api/teacher/assignments').subscribe({
+    this.http.get<any[]>('https://homeworktrackingbackend.onrender.com/api/teacher/assignments').subscribe({
       next: (data) => this.childAssignments = data,
       error: () => alert('❌ Failed to load assignments'),
     });

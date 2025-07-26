@@ -50,7 +50,7 @@ export class TeacherpageComponent implements OnInit {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http.post('http://localhost:8080/api/teacher/assignments', assignmentData, { headers })
+    this.http.post('https://homeworktrackingbackend.onrender.com/api/teacher/assignments', assignmentData, { headers })
       .subscribe({
         next: () => {
           alert('✅ Assignment submitted successfully!');
@@ -75,7 +75,7 @@ export class TeacherpageComponent implements OnInit {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http.get<any[]>('http://localhost:8080/api/teacher/assignments', { headers }).subscribe({
+    this.http.get<any[]>('https://homeworktrackingbackend.onrender.com/api/teacher/assignments', { headers }).subscribe({
       next: (data) => {
         this.homeworkList = data;
       },
@@ -90,7 +90,7 @@ export class TeacherpageComponent implements OnInit {
     const token = localStorage.getItem('auth_token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http.get<any[]>(`http://localhost:8080/api/teacher/submissions/${assignmentId}`, { headers })
+    this.http.get<any[]>(`https://homeworktrackingbackend.onrender.com/api/teacher/submissions/${assignmentId}`, { headers })
 
       .subscribe({
         next: (data) => {
@@ -112,7 +112,7 @@ export class TeacherpageComponent implements OnInit {
 
   this.http
     .put(
-      `http://localhost:8080/api/teacher/submissions/${submissionId}/feedback`,
+      `https://homeworktrackingbackend.onrender.com/api/teacher/submissions/${submissionId}/feedback`,
       body,
       { headers, responseType: 'text' }  // 👈 THIS LINE tells Angular to expect plain text }
       

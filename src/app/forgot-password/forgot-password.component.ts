@@ -28,7 +28,7 @@ export class ForgotPasswordComponent {
 
     this.http
       .post<{ message: string; token: string }>(
-        'http://localhost:8080/api/auth/forgot-password',
+        'https://homeworktrackingbackend.onrender.com/api/auth/forgot-password',
         { username: this.username }
       )
       .subscribe({

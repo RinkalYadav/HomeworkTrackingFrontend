@@ -52,7 +52,7 @@
         <p><strong>Class:</strong> {{ s.student?.classes || 'Unknown' }}</p>
 
         <p><strong>Submitted At:</strong> {{ s.submittedAt | date:'short' }}</p>
-        <a [href]="'http://localhost:8080/' + s.filePath" target="_blank">📂 View Submission</a>
+        <a [href]="'https://homeworktrackingbackend.onrender.com/' + s.filePath" target="_blank">📂 View Submission</a>
 
         <div class="mt-2">
           <textarea [(ngModel)]="s.feedback" placeholder="Enter feedback" class="form-control"></textarea>
